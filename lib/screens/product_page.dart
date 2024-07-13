@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:store_front_app/models/product_model.dart';
+import 'package:store_front_app/services/prefs.dart';
 import 'package:store_front_app/utils/formatting.dart';
 import 'package:store_front_app/widgets/add_product_button.dart';
 import 'package:store_front_app/widgets/basket_appbar.dart';
 import 'package:store_front_app/widgets/product_image.dart';
+import 'package:store_front_app/widgets/recently_viewed.dart';
 import 'package:store_front_app/widgets/size_selector.dart';
 
 class ProductPage extends StatefulWidget {
@@ -15,6 +17,12 @@ class ProductPage extends StatefulWidget {
 }
 
 class _ProductPageState extends State<ProductPage> {
+  @override
+  void initState() {
+    super.initState();
+    addRecentlyViewed(widget.product.sku);
+  }
+
   String _getTitle() {
     if (widget.product.brandName == null) {
       return widget.product.sku;
@@ -125,10 +133,13 @@ class _ProductPageState extends State<ProductPage> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                        )
+                        ),
                 ],
               ),
-            )
+            ),
+            const SizedBox(height: 20),
+            RecentlyViewedProducts(currentSku: widget.product.sku),
+            const SizedBox(height: 50),
           ],
         ),
       ),

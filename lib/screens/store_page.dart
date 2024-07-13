@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:store_front_app/providers/product_provider.dart';
+import 'package:store_front_app/services/prefs.dart';
 import 'package:store_front_app/widgets/basket_appbar.dart';
 import 'package:store_front_app/widgets/product_card.dart';
 
@@ -24,9 +25,28 @@ class StorePage extends StatelessWidget {
             } else {
               // on success
               return ListView.builder(
-                itemCount: productProvider.products.length,
+                itemCount: productProvider.products.length + 1,
                 itemBuilder: (context, index) {
-                  return ProductCard(product: productProvider.products[index]);
+                  if (index == productProvider.products.length) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextButton(
+                        onPressed: () {
+                          clearPrefs()
+                              .then((value) => productProvider.fetchProducts());
+                        },
+                        child: const Text('Reset',
+                            style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            )),
+                      ),
+                    );
+                  } else {
+                    return ProductCard(
+                        product: productProvider.products[index]);
+                  }
                 },
               );
             }
