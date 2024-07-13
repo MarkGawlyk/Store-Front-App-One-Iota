@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:store_front_app/providers/product_provider.dart';
+import 'package:store_front_app/widgets/basket_appbar.dart';
 import 'package:store_front_app/widgets/product_card.dart';
 
 class StorePage extends StatelessWidget {
@@ -9,6 +10,10 @@ class StorePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const BasketAppBar(
+        title: 'Shoe Store',
+        backButton: false,
+      ),
       body: Center(
         child: Consumer<ProductProvider>(
           builder: (context, productProvider, child) {

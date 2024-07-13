@@ -3,6 +3,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:store_front_app/models/product_model.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:store_front_app/screens/product_page.dart';
+import 'package:store_front_app/utils/formatting.dart';
 
 class ProductCard extends StatefulWidget {
   final Product product;
@@ -18,18 +19,6 @@ class _ProductCardState extends State<ProductCard> {
     super.initState();
   }
 
-  String _getCurrency() {
-    if (widget.product.price.currency == 'USD') {
-      return '\$';
-    } else if (widget.product.price.currency == 'EUR') {
-      return '€';
-    } else if (widget.product.price.currency == 'GBP') {
-      return '£';
-    } else {
-      return ' ${widget.product.price.currency}';
-    }
-  }
-
   void _onTap() {
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -38,10 +27,14 @@ class _ProductCardState extends State<ProductCard> {
     );
   }
 
+  String _getPrice() {
+    return '${formatCurrency(widget.product.price.currency)}${widget.product.price.amount}';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      margin: const EdgeInsets.only(left: 12, right: 12, top: 12),
       height: 160,
       decoration: BoxDecoration(
         color: Colors.white,
@@ -87,7 +80,7 @@ class _ProductCardState extends State<ProductCard> {
                           ),
                         ),
                         Text(
-                          '${_getCurrency()}${widget.product.price.amount}',
+                          _getPrice(),
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
@@ -118,9 +111,9 @@ class _ProductCardState extends State<ProductCard> {
                         progressIndicatorBuilder:
                             (context, url, downloadProgress) =>
                                 Shimmer.fromColors(
-                          baseColor: const Color.fromARGB(90, 224, 224, 224)!,
+                          baseColor: const Color.fromARGB(90, 224, 224, 224),
                           highlightColor:
-                              const Color.fromARGB(34, 245, 245, 245)!,
+                              const Color.fromARGB(34, 245, 245, 245),
                           child: Container(
                             width: 140,
                             height: 140,
