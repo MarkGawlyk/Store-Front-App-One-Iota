@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:store_front_app/providers/cart_provider.dart';
 import 'package:store_front_app/providers/product_provider.dart';
 import 'package:store_front_app/services/prefs.dart';
 import 'package:store_front_app/widgets/basket_appbar.dart';
@@ -32,8 +33,11 @@ class StorePage extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: TextButton(
                         onPressed: () {
-                          clearPrefs()
-                              .then((value) => productProvider.fetchProducts());
+                          clearPrefs().then((value) {
+                            productProvider.fetchProducts();
+                            Provider.of<CartProvider>(context, listen: false)
+                                .fetchItems();
+                          });
                         },
                         child: const Text('Reset',
                             style: TextStyle(

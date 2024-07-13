@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:store_front_app/providers/cart_provider.dart';
 import 'package:store_front_app/providers/product_provider.dart';
 import 'package:store_front_app/screens/store_page.dart';
 import 'package:store_front_app/themes/themes.dart';
@@ -17,6 +18,9 @@ class ShoeStoreApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (_) => ProductProvider()..fetchProducts(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => CartProvider()..fetchItems(),
         ),
       ],
       child: MaterialApp(

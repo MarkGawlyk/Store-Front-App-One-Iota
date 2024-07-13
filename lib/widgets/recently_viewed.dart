@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:store_front_app/models/product_model.dart';
 import 'package:store_front_app/providers/product_provider.dart';
 import 'package:store_front_app/screens/product_page.dart';
 import 'package:store_front_app/services/prefs.dart';
@@ -72,12 +71,16 @@ class _RecentlyViewedProductsState extends State<RecentlyViewedProducts> {
                                 recentlyViewedSkus[
                                     recentlyViewedSkus.length - 1 - index]);
                         return SmallProductImage(
-                            productUrl: product.mainImage!,
-                            onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) =>
-                                      ProductPage(product: product)));
-                            });
+                          productUrl: product.mainImage!,
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    ProductPage(product: product),
+                              ),
+                            );
+                          },
+                        );
                       },
                     ),
                   ),

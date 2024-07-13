@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:store_front_app/models/cart_item_model.dart';
 import 'package:store_front_app/models/product_model.dart';
+import 'package:store_front_app/providers/cart_provider.dart';
 import 'package:store_front_app/services/prefs.dart';
 import 'package:store_front_app/utils/formatting.dart';
 import 'package:store_front_app/widgets/add_product_button.dart';
@@ -41,6 +44,16 @@ class _ProductPageState extends State<ProductPage> {
 
   String _getPrice() {
     return '${formatCurrency(widget.product.price.currency)}${widget.product.price.amount}';
+  }
+
+  void _onAddToBasket() {
+    CartItem item = CartItem(
+      sku: widget.product.sku,
+      size: selectedSize,
+    );
+    addCartItem(item);
+    // update provider
+    Provider.of<CartProvider>(context, listen: false).fetchItems();
   }
 
   String selectedSize = "";
@@ -120,7 +133,7 @@ class _ProductPageState extends State<ProductPage> {
                             AddProductButton(
                               product: widget.product,
                               size: selectedSize,
-                              onAddToBasket: () {},
+                              onAddToBasket: _onAddToBasket,
                             )
                           ],
                         )

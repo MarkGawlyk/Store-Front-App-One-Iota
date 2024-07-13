@@ -1,6 +1,8 @@
 // shared preferences helper
 
+import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:store_front_app/models/cart_item_model.dart';
 
 // clear all shared preferences
 Future<void> clearPrefs() async {
@@ -23,4 +25,19 @@ Future<void> addRecentlyViewed(String sku) async {
 Future<List<String>> getRecentlyViewed() async {
   final prefs = await SharedPreferences.getInstance();
   return prefs.getStringList('recentlyViewed') ?? [];
+}
+
+// add item to basket
+Future<void> addCartItem(CartItem items) async {
+  final prefs = await SharedPreferences.getInstance();
+  final List<String> basketItems = prefs.getStringList('basketItems') ?? [];
+  basketItems.add(jsonEncode(items.toJson()));
+  await prefs.setStringList('basketItems', basketItems);
+}
+
+// get basket items
+Future<List<CartItem>> getCartItems() async {
+  final prefs = await SharedPreferences.getInstance();
+  final List<String> basketItems = prefs.getStringList('basketItems') ?? [];
+  return basketItems.map((e) => CartItem.fromJson(jsonDecode(e))).toList();
 }
