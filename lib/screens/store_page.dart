@@ -9,9 +9,6 @@ class StorePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Product Storefront'),
-      ),
       body: Center(
         child: Consumer<ProductProvider>(
           builder: (context, productProvider, child) {

@@ -11,4 +11,5 @@ final ThemeData defaultTheme = ThemeData(
       fontWeight: FontWeight.bold,
     ),
   ),
+  scaffoldBackgroundColor: const Color.fromARGB(255, 251, 251, 251),
 );
