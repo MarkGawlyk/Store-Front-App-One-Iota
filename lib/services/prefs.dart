@@ -27,7 +27,7 @@ Future<List<String>> getRecentlyViewed() async {
   return prefs.getStringList('recentlyViewed') ?? [];
 }
 
-// add item to basket
+// add item to cart
 Future<void> addCartItem(CartItem items) async {
   final prefs = await SharedPreferences.getInstance();
   final List<String> basketItems = prefs.getStringList('basketItems') ?? [];
@@ -35,9 +35,21 @@ Future<void> addCartItem(CartItem items) async {
   await prefs.setStringList('basketItems', basketItems);
 }
 
-// get basket items
+// get cart items
 Future<List<CartItem>> getCartItems() async {
   final prefs = await SharedPreferences.getInstance();
   final List<String> basketItems = prefs.getStringList('basketItems') ?? [];
   return basketItems.map((e) => CartItem.fromJson(jsonDecode(e))).toList();
+}
+
+// remove item from cart (all instances)
+Future<void> removeCartItem(CartItem item) async {
+  final prefs = await SharedPreferences.getInstance();
+  final List<String> cartItems = prefs.getStringList('basketItems') ?? [];
+  final List<String> newCartItems = cartItems
+      .where((element) =>
+          CartItem.fromJson(jsonDecode(element)).sku != item.sku ||
+          CartItem.fromJson(jsonDecode(element)).size != item.size)
+      .toList();
+  await prefs.setStringList('basketItems', newCartItems);
 }

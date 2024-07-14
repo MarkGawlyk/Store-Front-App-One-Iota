@@ -4,6 +4,7 @@ import 'package:store_front_app/models/cart_item_model.dart';
 import 'package:store_front_app/models/product_model.dart';
 import 'package:store_front_app/providers/cart_provider.dart';
 import 'package:store_front_app/providers/product_provider.dart';
+import 'package:store_front_app/services/prefs.dart';
 import 'package:store_front_app/utils/formatting.dart';
 import 'package:store_front_app/widgets/cart_item_card.dart';
 
@@ -65,6 +66,11 @@ class CartPage extends StatelessWidget {
                     // convert list of cartItems to a list of cartItem quantity pairs
                     List<CartItem> cartItems = cartProvider.items;
                     List<ProcessedCartItem> processedCartItems = [];
+
+                    void removeEntry(CartItem cartItem) {
+                      removeCartItem(cartItem);
+                      cartProvider.fetchItems();
+                    }
 
                     for (CartItem cartItem in cartItems) {
                       var entry = processedCartItems.firstWhere((element) {
@@ -164,7 +170,9 @@ class CartPage extends StatelessWidget {
                               } else {
                                 return CartItemCard(
                                   cartItem: processedCartItems[index],
-                                  onRemoveFromCart: () {},
+                                  onRemoveFromCart: () {
+                                    removeEntry(cartItems[index]);
+                                  },
                                 );
                               }
                             },
