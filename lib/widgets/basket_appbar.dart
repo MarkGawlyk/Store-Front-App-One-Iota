@@ -41,24 +41,12 @@ class BasketAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
       actions: [
-        // IconButton(
-        //   icon: const Icon(
-        //     Icons.shopping_basket,
-        //     color: Colors.black,
-        //   ),
-        //   onPressed: () {
-        //     // bottom modal sheet - display items in the basket
-        //     showModalBottomSheet(
-        //       context: context,
-        //       builder: (context) {
-        //         return const CartPage();
-        //       },
-        //     );
-        //   },
-        // ),
         CartIcon(onTap: () {
           showModalBottomSheet(
             context: context,
+            isScrollControlled: true,
+            backgroundColor: Colors.transparent,
+            isDismissible: true,
             builder: (context) {
               return const CartPage();
             },
