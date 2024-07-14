@@ -11,6 +11,7 @@ import 'package:store_front_app/widgets/product_image.dart';
 import 'package:store_front_app/widgets/recently_viewed.dart';
 import 'package:store_front_app/widgets/size_selector.dart';
 
+// page to display product details
 class ProductPage extends StatefulWidget {
   final Product product;
   const ProductPage({super.key, required this.product});
@@ -110,11 +111,32 @@ class _ProductPageState extends State<ProductPage> {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    _getPrice(),
+                    widget.product.brandName ?? '',
                     style: const TextStyle(
-                      fontSize: 16,
+                      fontSize: 14,
                       fontWeight: FontWeight.bold,
                     ),
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    children: [
+                      Text(
+                        _getPrice(),
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const Spacer(),
+                      Text(
+                        widget.product.colour != null
+                            ? widget.product.colour!.toUpperCase()
+                            : '',
+                        style: const TextStyle(
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 10),
                   // List of sizes product.sizes

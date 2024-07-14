@@ -123,7 +123,9 @@ class _ProductCardState extends State<ProductCard> {
                             ),
                           ),
                         ),
-                        errorWidget: (context, url, error) => const SizedBox(),
+                        errorWidget: (context, url, error) {
+                          return const SizedBox.shrink();
+                        },
                       ),
               ],
             ),

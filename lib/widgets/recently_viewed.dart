@@ -39,12 +39,12 @@ class _RecentlyViewedProductsState extends State<RecentlyViewedProducts> {
   @override
   Widget build(BuildContext context) {
     return !showRecentlyViewed
-        ? const SizedBox()
+        ? const SizedBox.shrink()
         : Consumer<ProductProvider>(builder: (context, productProvider, child) {
             if (productProvider.isLoading) {
-              return const SizedBox();
+              return const SizedBox.shrink();
             } else if (productProvider.isError) {
-              return const SizedBox();
+              return const SizedBox.shrink();
             } else {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

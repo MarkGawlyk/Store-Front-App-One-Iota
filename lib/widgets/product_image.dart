@@ -36,7 +36,7 @@ class LargeProductImage extends StatelessWidget {
             ),
           ),
         ),
-        errorWidget: (context, url, error) => const SizedBox(),
+        errorWidget: (context, url, error) => const SizedBox.shrink(),
       ),
     );
   }
@@ -88,7 +88,7 @@ class SmallProductImage extends StatelessWidget {
                     ),
                   ),
                 ),
-                errorWidget: (context, url, error) => const SizedBox(),
+                errorWidget: (context, url, error) => const SizedBox.shrink(),
               ),
             ),
             Material(

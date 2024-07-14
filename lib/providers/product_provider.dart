@@ -11,6 +11,7 @@ class ProductProvider with ChangeNotifier {
   bool get isLoading => _isLoading;
   bool get isError => _isError;
 
+  // fetch products and update the provider
   Future<void> fetchProducts() async {
     _isLoading = true;
     notifyListeners();

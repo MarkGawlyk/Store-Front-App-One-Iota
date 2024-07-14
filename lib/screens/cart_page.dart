@@ -8,6 +8,7 @@ import 'package:store_front_app/services/prefs.dart';
 import 'package:store_front_app/utils/formatting.dart';
 import 'package:store_front_app/widgets/cart_item_card.dart';
 
+// Bottom sheet to display items in the cart
 class CartPage extends StatelessWidget {
   const CartPage({Key? key}) : super(key: key);
 
@@ -69,7 +70,6 @@ class CartPage extends StatelessWidget {
                     }
 
                     final anyItems = cartProvider.items.isNotEmpty;
-                    // convert list of cartItems to a list of cartItem quantity pairs
                     List<CartItem> cartItems = cartProvider.items;
                     List<ProcessedCartItem> processedCartItems = [];
 
@@ -107,10 +107,10 @@ class CartPage extends StatelessWidget {
 
                     double totalPrice = 0;
                     String currency = '';
+
                     for (ProcessedCartItem entry in processedCartItems) {
                       totalPrice += double.parse(entry.product.price.amount) *
                           entry.quantity;
-
                       if (currency == 'Multiple') {
                         continue;
                       } else if (currency == '') {
