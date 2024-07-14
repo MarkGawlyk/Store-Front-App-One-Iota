@@ -62,6 +62,12 @@ class CartPage extends StatelessWidget {
               } else {
                 return Consumer<ProductProvider>(
                   builder: (context, productProvider, child) {
+                    if (productProvider.isLoading) {
+                      return const CircularProgressIndicator();
+                    } else if (productProvider.isError) {
+                      return const Text('Failed to load items');
+                    }
+
                     final anyItems = cartProvider.items.isNotEmpty;
                     // convert list of cartItems to a list of cartItem quantity pairs
                     List<CartItem> cartItems = cartProvider.items;
@@ -171,7 +177,7 @@ class CartPage extends StatelessWidget {
                                 return CartItemCard(
                                   cartItem: processedCartItems[index],
                                   onRemoveFromCart: () {
-                                    removeEntry(cartItems[index]);
+                                    removeEntry(processedCartItems[index]);
                                   },
                                 );
                               }

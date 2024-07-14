@@ -19,7 +19,7 @@ class CartItem {
   }
 }
 
-// Extend CartItem to include quantity
+// Extend CartItem to include quantity and product
 
 class ProcessedCartItem extends CartItem {
   int quantity;
